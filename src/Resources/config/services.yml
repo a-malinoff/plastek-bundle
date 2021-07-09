@@ -1,0 +1,18 @@
+services:
+    Malinoff\PlastekBundle\Services\PlastekClient:
+        arguments:
+            - '@Malinoff\PlastekBundle\Services\Configuration'
+            - '@Malinoff\PlastekBundle\Services\PlastekFactory'
+            - '@http_client'
+            - '@logger'
+            - '@validator'
+
+    Malinoff\PlastekBundle\Services\Configuration:
+        arguments:
+            - '%plastek.api_url%'
+            - '%plastek.version%'
+            - '%plastek.password%'
+            - '%plastek.debug%'
+            - '%plastek.timeout%'
+
+    Malinoff\PlastekBundle\Services\PlastekFactory: ~
