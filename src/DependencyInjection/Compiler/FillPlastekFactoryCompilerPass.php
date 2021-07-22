@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Malinoff\PlastekBundle\DependencyInjection\Compiler;
 
 use Malinoff\PlastekBundle\Services\PlastekFactory;
@@ -14,7 +16,7 @@ class FillPlastekFactoryCompilerPass implements CompilerPassInterface
     /**
      * {@inheritDoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(PlastekFactory::class)) {
             throw new \RuntimeException(sprintf('Requires available service %s in the container', PlastekFactory::class));
@@ -27,7 +29,9 @@ class FillPlastekFactoryCompilerPass implements CompilerPassInterface
         foreach ($taggedServiceIds as $id => $tagOptions) {
             $taggedDefinition = $container->getDefinition($id);
 
-            if (!in_array(FillPlastekFactoryInterface::class, class_implements($taggedDefinition->getClass()))) {
+            $taggedDefinitionInterfaces = class_implements($taggedDefinition->getClass());
+
+            if (false === $taggedDefinitionInterfaces || !in_array(FillPlastekFactoryInterface::class, $taggedDefinitionInterfaces)) {
                 throw new \RuntimeException(sprintf('Service %s with tag %s must implement interface %s', $id, self::TAG, FillPlastekFactoryInterface::class));
             }
 

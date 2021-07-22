@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Malinoff\PlastekBundle\DependencyInjection;
 
 use Malinoff\PlastekBundle\DependencyInjection\Compiler\FillPlastekFactoryCompilerPass;
@@ -14,7 +16,7 @@ class MalinoffPlastekExtension extends Extension
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $container->registerForAutoconfiguration(FillPlastekFactoryInterface::class)
             ->addTag(FillPlastekFactoryCompilerPass::TAG)

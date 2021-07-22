@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Malinoff\PlastekBundle\Services\Request;
 
 use DateTime;
@@ -162,7 +164,7 @@ class CreateOrderRequest extends BaseRequest
         return $this;
     }
 
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         parent::loadValidatorMetadata($metadata);
 

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Malinoff\PlastekBundle\Tests\DependencyInjection\Compiler;
 
 use Malinoff\PlastekBundle\DependencyInjection\Compiler\FillPlastekFactoryCompilerPass;
 use Malinoff\PlastekBundle\Services\PlastekFactory;
-use Malinoff\PlastekBundle\Tests\KernelTestCase;
 use Malinoff\PlastekBundle\Tests\mocks\ServiceWithFillPlastekFactory;
 use Malinoff\PlastekBundle\Tests\mocks\ServiceWithoutFillPlastekFactory;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class FillPlastekFactoryCompilerPassTest extends KernelTestCase

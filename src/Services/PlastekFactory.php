@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Malinoff\PlastekBundle\Services;
 
 use Exception;
@@ -36,6 +38,9 @@ final class PlastekFactory
         GetOrderRequest::class => GetOrderResponse::class,
     ];
 
+    /**
+     * @var array|null
+     */
     private $map = [];
 
     public function __construct()
@@ -67,11 +72,13 @@ final class PlastekFactory
     private function addMap(array $map): void
     {
         foreach ($map as $requestClass => $responseClass) {
-            if (!in_array(RequestInterface::class, class_implements($requestClass))) {
+            $requestImplements = class_implements($requestClass);
+            if (false === $requestImplements || !in_array(RequestInterface::class, $requestImplements)) {
                 continue;
             }
 
-            if (!in_array(ResponseInterface::class, class_implements($responseClass))) {
+            $responseImplements = class_implements($responseClass);
+            if (false === $responseImplements || !in_array(ResponseInterface::class, $responseImplements)) {
                 continue;
             }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Malinoff\PlastekBundle\Services\Request;
 
 use Symfony\Component\Validator\Constraints as Assert;
@@ -24,12 +26,24 @@ abstract class BaseRequest implements RequestInterface
         self::TYPE_CARD_NUMBER,
     ];
 
+    /**
+     * @var string|null
+     */
     protected $version;
 
+    /**
+     * @var string|null
+     */
     protected $uuid;
 
+    /**
+     * @var string|null
+     */
     protected $ticks;
 
+    /**
+     * @var string|null
+     */
     protected $loginType;
 
     public function setVersion(?string $version): self
@@ -70,7 +84,7 @@ abstract class BaseRequest implements RequestInterface
         return [];
     }
 
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addPropertyConstraint('version', new Assert\NotBlank([
             'groups' => ['request'],

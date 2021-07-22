@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Malinoff\PlastekBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase as BaseKernelTestCase;

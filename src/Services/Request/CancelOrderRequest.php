@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Malinoff\PlastekBundle\Services\Request;
 
 use Symfony\Component\Validator\Constraints as Assert;
@@ -40,7 +42,7 @@ class CancelOrderRequest extends BaseRequest
         return $this;
     }
 
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         parent::loadValidatorMetadata($metadata);
 

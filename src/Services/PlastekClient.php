@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Malinoff\PlastekBundle\Services;
 
 use Exception;
@@ -105,7 +107,7 @@ class PlastekClient
 
         $request->setVersion($version);
         $request->setUuid($uuid);
-        $request->setTicks($ticks);
+        $request->setTicks((string) $ticks);
 
         $errors = $this->validateEntity($request, ['request']);
 
@@ -164,9 +166,13 @@ class PlastekClient
                 throw new Exception($exception->getMessage(), $exception->getCode(), $exception);
             }
 
+            $errorLevel = preg_replace('/[^0-9]/', '', $errorResponseData[0]);
+
+            $idError = preg_replace('/[^0-9]/', '', $errorResponseData[1]);
+
             $errorResponse = (new ErrorResponse())
-                ->setErrorLevel(preg_replace('/[^0-9]/', '', $errorResponseData[0]))
-                ->setIdError(preg_replace('/[^0-9]/', '', $errorResponseData[1]))
+                ->setErrorLevel(null !== $errorLevel ? (int) $errorLevel : null)
+                ->setIdError(null !== $idError ? (int) $idError : null)
                 ->setText($errorResponseData[2]);
 
             throw new PlastekException($exception, $errorResponse);
@@ -178,7 +184,7 @@ class PlastekClient
     /**
      * The function returns the number of 100-nanosecond intervals since 00:00:00 1 January 0001.
      */
-    private function getTicks(): string
+    private function getTicks(): int
     {
         $d1 = strtotime('0001-01-01 00:00:00');
         $d1 = $d1 < 0 ? -$d1 : $d1;
@@ -189,6 +195,9 @@ class PlastekClient
         return ($d1 + (int) $d2) * 1000;
     }
 
+    /**
+     * @param mixed $entity
+     */
     private function validateEntity($entity, array $validationGroups = []): array
     {
         $errors = [];
@@ -223,6 +232,8 @@ class PlastekClient
     }
 
     /**
+     * @param array|string $body
+     *
      * @throws ApiException
      * @throws Exception
      */

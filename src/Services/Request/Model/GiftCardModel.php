@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Malinoff\PlastekBundle\Services\Request\Model;
 
 use JMS\Serializer\Annotation as Serializer;

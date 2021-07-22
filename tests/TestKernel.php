@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Malinoff\PlastekBundle\Tests;
 
 use Exception;
@@ -10,9 +12,9 @@ use Symfony\Component\HttpKernel\Kernel;
 
 class TestKernel extends Kernel
 {
-    protected function build(ContainerBuilder $containerBuilder): void
+    protected function build(ContainerBuilder $container): void
     {
-        $containerBuilder->addCompilerPass(new TestCompilerPass());
+        $container->addCompilerPass(new TestCompilerPass());
     }
 
     public function registerBundles(): array

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Malinoff\PlastekBundle\Services\Exception;
 
 use Exception;
@@ -18,8 +20,6 @@ class PlastekException extends Exception
         parent::__construct($previous->getMessage(), $previous->getCode(), $previous->getPrevious());
 
         $this->errorResponse = $errorResponse;
-
-        return $this;
     }
 
     public function getErrorResponse(): ErrorResponse
