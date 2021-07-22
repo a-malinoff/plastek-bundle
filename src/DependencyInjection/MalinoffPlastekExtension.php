@@ -2,6 +2,7 @@
 
 namespace Malinoff\PlastekBundle\DependencyInjection;
 
+use Malinoff\PlastekBundle\DependencyInjection\Compiler\FillPlastekFactoryCompilerPass;
 use Malinoff\PlastekBundle\DependencyInjection\Compiler\FillPlastekFactoryInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -16,7 +17,7 @@ class MalinoffPlastekExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $container->registerForAutoconfiguration(FillPlastekFactoryInterface::class)
-            ->addTag('malinoff.fill_plastek_factory_tag')
+            ->addTag(FillPlastekFactoryCompilerPass::TAG)
         ;
 
         $configuration = new Configuration($container);

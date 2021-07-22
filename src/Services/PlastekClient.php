@@ -126,7 +126,11 @@ class PlastekClient
                     ),
                 ]),
                 $request->getQuery(),
-                $this->serializer->serialize($request->getBody(), 'json', $this->getSerializationContext())
+                $this->serializer->serialize(
+                    $request->getBody(),
+                    'json',
+                    SerializationContext::create()->setGroups(['request'])
+                )
             );
 
             if (empty($responseData)) {
@@ -141,7 +145,7 @@ class PlastekClient
                 $responseData,
                 get_class($this->plastekFactory->createResponse($request)),
                 'json',
-                $this->getDeserializationContext()
+                DeserializationContext::create()->setGroups(['response'])
             );
         } catch (ApiException $exception) {
             if (404 === (int) $exception->getCode()) {
@@ -185,24 +189,6 @@ class PlastekClient
         return ($d1 + (int) $d2) * 1000;
     }
 
-    private function getSerializationContext(): SerializationContext
-    {
-        $groups = ['request'];
-
-        return SerializationContext::create()
-            ->setVersion(5)
-            ->setGroups($groups);
-    }
-
-    private function getDeserializationContext(): DeserializationContext
-    {
-        $groups = ['response'];
-
-        return DeserializationContext::create()
-            ->setVersion(5)
-            ->setGroups($groups);
-    }
-
     private function validateEntity($entity, array $validationGroups = []): array
     {
         $errors = [];
@@ -219,12 +205,14 @@ class PlastekClient
     {
         $headers = [];
 
-        switch ($options[self::KEY_METHOD]) {
-            case 'POST':
-            case 'PUT':
-                $headers['Content-Type'] = 'application/json';
+        if (!empty($options[self::KEY_TOKEN])) {
+            switch ($options[self::KEY_METHOD]) {
+                case 'POST':
+                case 'PUT':
+                    $headers['Content-Type'] = 'application/json';
 
-                break;
+                    break;
+            }
         }
 
         if (!empty($options[self::KEY_TOKEN])) {
@@ -252,43 +240,46 @@ class PlastekClient
 
             if ($this->configuration->isDebug()) {
                 $this->logger->debug(sprintf(
-                    'Service response[url=%s]: %s',
+                    'Plastek request is success [url=%s]: %s',
                     $url,
                     $response
                 ), $options);
             }
 
             return $response;
-        } catch (HttpExceptionInterface $e) {
-            $code = $e->getCode();
-            $message = $e->getMessage();
+        } catch (HttpExceptionInterface $exception) {
+            $code = $exception->getCode();
+            $message = $exception->getMessage();
 
             try {
-                $code = $e->getResponse()->getStatusCode();
-                $message = $e->getResponse()->getContent(false);
+                $code = $exception->getResponse()->getStatusCode();
+                $message = $exception->getResponse()->getContent(false);
             } catch (ExceptionInterface $e) {
             }
 
             if ($this->configuration->isDebug()) {
                 $this->logger->error(sprintf(
-                    'Service response error[url=%s]: %s: %s',
+                    'Plastek request is http failure [url=%s]: %s: %s',
                     $url,
                     $code,
                     $message
                 ), $options);
             }
 
-            throw new ApiException($message, $code, $e);
-        } catch (ExceptionInterface $e) {
+            throw new ApiException($message, $code, $exception);
+        } catch (ExceptionInterface $exception) {
+            $code = $exception->getCode();
+            $message = $exception->getMessage();
+
             if ($this->configuration->isDebug()) {
                 $this->logger->error(sprintf(
-                    'Service response error[url=%s]: %s',
+                    'Plastek request is exception failure [url=%s]: %s',
                     $url,
-                    $e->getMessage()
+                    $message
                 ), $options);
             }
 
-            throw new Exception($e->getMessage(), $e->getCode(), $e);
+            throw new Exception($message, $code, $exception);
         }
     }
 }

@@ -5,6 +5,8 @@ namespace Malinoff\PlastekBundle\Services\Request;
 use DateTime;
 use Malinoff\PlastekBundle\Services\Request\Model\BasketItemModel;
 use Malinoff\PlastekBundle\Services\Request\Model\GiftCardModel;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class CreateOrderRequest extends BaseRequest
 {
@@ -158,5 +160,14 @@ class CreateOrderRequest extends BaseRequest
         $this->basket[] = $basketItem;
 
         return $this;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        parent::loadValidatorMetadata($metadata);
+
+        $metadata->addPropertyConstraint('loginType', new Assert\NotBlank([
+            'groups' => ['request'],
+        ]));
     }
 }

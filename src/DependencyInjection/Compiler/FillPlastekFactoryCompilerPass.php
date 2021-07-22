@@ -17,7 +17,7 @@ class FillPlastekFactoryCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         if (!$container->has(PlastekFactory::class)) {
-            return;
+            throw new \RuntimeException(sprintf('Requires available service %s in the container', PlastekFactory::class));
         }
 
         $definition = $container->getDefinition(PlastekFactory::class);

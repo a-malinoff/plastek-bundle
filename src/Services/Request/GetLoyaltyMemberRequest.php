@@ -45,6 +45,10 @@ class GetLoyaltyMemberRequest extends BaseRequest
     {
         parent::loadValidatorMetadata($metadata);
 
+        $metadata->addPropertyConstraint('loginType', new Assert\NotBlank([
+            'groups' => ['request'],
+        ]));
+
         $metadata->addPropertyConstraint('userLogin', new Assert\NotBlank([
             'groups' => ['request'],
         ]));

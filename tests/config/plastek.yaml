@@ -1,0 +1,6 @@
+malinoff_plastek:
+  api_url: 'https://example.ru'
+  version: 'example_version'
+  password: 'example_password'
+  debug: false
+  timeout: 30

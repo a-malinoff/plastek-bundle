@@ -55,7 +55,7 @@ final class PlastekFactory
 
             return new $class();
         } catch (Exception $exception) {
-            throw new Exception('Can\'t find matched response for '.$requestClass);
+            throw new Exception(sprintf('Can\'t find matched Response Class for %s', $requestClass));
         }
     }
 
