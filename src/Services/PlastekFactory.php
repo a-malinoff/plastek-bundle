@@ -27,7 +27,7 @@ use Malinoff\PlastekBundle\Services\Response\ResponseInterface;
 
 final class PlastekFactory
 {
-    private const REQUEST_RESPONSE_MAP = [
+    private const DEFAULT_REQUEST_RESPONSE_MAP = [
         CreateOrderRequest::class => CreateOrderResponse::class,
         EditOrderRequest::class => EditOrderResponse::class,
         CalculateOrderRequest::class => CalculateOrderResponse::class,
@@ -45,7 +45,7 @@ final class PlastekFactory
 
     public function __construct()
     {
-        $this->addMap(self::REQUEST_RESPONSE_MAP);
+        $this->addMap(self::DEFAULT_REQUEST_RESPONSE_MAP);
     }
 
     /**

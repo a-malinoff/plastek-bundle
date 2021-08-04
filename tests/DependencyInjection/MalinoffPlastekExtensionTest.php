@@ -36,9 +36,9 @@ class MalinoffPlastekExtensionTest extends KernelTestCase
 
         $this->load([], $container);
 
-        $this->assertTrue($container->getDefinition(Configuration::class) instanceof Definition);
-        $this->assertTrue($container->getDefinition(PlastekClient::class) instanceof Definition);
-        $this->assertTrue($container->getDefinition(PlastekFactory::class) instanceof Definition);
+        $this->assertInstanceOf(Definition::class, $container->getDefinition(Configuration::class));
+        $this->assertInstanceOf(Definition::class, $container->getDefinition(PlastekClient::class));
+        $this->assertInstanceOf(Definition::class, $container->getDefinition(PlastekFactory::class));
     }
 
     public function testLoadSetParameters()
