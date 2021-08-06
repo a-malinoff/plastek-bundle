@@ -6,10 +6,12 @@ namespace Malinoff\PlastekBundle\Tests\mocks;
 
 use Malinoff\PlastekBundle\DependencyInjection\Compiler\FillPlastekFactoryInterface;
 
-class ServiceWithFillPlastekFactory implements FillPlastekFactoryInterface
+class FillPlastekFactoryService implements FillPlastekFactoryInterface
 {
     public static function getMap(): array
     {
-        return [];
+        return [
+            TestRequest::class => TestResponse::class,
+        ];
     }
 }

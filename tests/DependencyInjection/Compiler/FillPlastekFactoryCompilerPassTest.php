@@ -6,8 +6,8 @@ namespace Malinoff\PlastekBundle\Tests\DependencyInjection\Compiler;
 
 use Malinoff\PlastekBundle\DependencyInjection\Compiler\FillPlastekFactoryCompilerPass;
 use Malinoff\PlastekBundle\Services\PlastekFactory;
-use Malinoff\PlastekBundle\Tests\mocks\ServiceWithFillPlastekFactory;
-use Malinoff\PlastekBundle\Tests\mocks\ServiceWithoutFillPlastekFactory;
+use Malinoff\PlastekBundle\Tests\mocks\FillPlastekFactoryService;
+use stdClass;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -36,7 +36,7 @@ class FillPlastekFactoryCompilerPassTest extends KernelTestCase
         foreach ($serviceIds as $serviceId) {
             $container
                 ->register($serviceId)
-                ->setClass(ServiceWithoutFillPlastekFactory::class)
+                ->setClass(stdClass::class)
                 ->addTag('malinoff.fill_plastek_factory_tag');
         }
 
@@ -60,7 +60,7 @@ class FillPlastekFactoryCompilerPassTest extends KernelTestCase
         foreach ($serviceIds as $serviceId) {
             $container
                 ->register($serviceId)
-                ->setClass(ServiceWithFillPlastekFactory::class)
+                ->setClass(FillPlastekFactoryService::class)
                 ->addTag('malinoff.fill_plastek_factory_tag');
         }
 

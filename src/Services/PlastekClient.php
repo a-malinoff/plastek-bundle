@@ -163,7 +163,7 @@ class PlastekClient
             $errorResponseData = explode('#', $errorResponseText['error']);
 
             if (count($errorResponseData) < 3) {
-                throw new Exception($exception->getMessage(), $exception->getCode(), $exception);
+                throw new Exception($errorResponseText['error'], $exception->getCode(), $exception);
             }
 
             $errorLevel = preg_replace('/[^0-9]/', '', $errorResponseData[0]);

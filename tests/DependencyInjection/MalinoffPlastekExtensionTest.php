@@ -46,11 +46,11 @@ class MalinoffPlastekExtensionTest extends KernelTestCase
         $container = new ContainerBuilder();
         $container->setParameter('kernel.environment', 'test');
 
-        $this->load(Yaml::parse(file_get_contents(__DIR__.'/../mocks/test_config.yaml')), $container);
+        $this->load(Yaml::parse(file_get_contents(__DIR__.'/../config/plastek.yaml')), $container);
 
-        $this->assertSame('https://test.ru', $container->getParameter('plastek.api_url'));
-        $this->assertSame('test_version', $container->getParameter('plastek.version'));
-        $this->assertSame('test_password', $container->getParameter('plastek.password'));
+        $this->assertSame('https://plastek.ru', $container->getParameter('plastek.api_url'));
+        $this->assertSame('plastek_version', $container->getParameter('plastek.version'));
+        $this->assertSame('plastek_password', $container->getParameter('plastek.password'));
         $this->assertSame(false, $container->getParameter('plastek.debug'));
         $this->assertSame(30, $container->getParameter('plastek.timeout'));
     }

@@ -28,6 +28,7 @@ class MockValidator implements ValidatorInterface
      */
     public function validate($value, $constraints = null, $groups = null)
     {
+        return [];
     }
 
     /**
