@@ -1,0 +1,13 @@
+services:
+    Malinoff\PlastekBundle\Services\Configuration:
+        arguments:
+            - '%plastek.api_url%'
+            - '%plastek.version%'
+            - '%plastek.password%'
+            - '%plastek.debug%'
+            - '%plastek.timeout%'
+
+    Malinoff\PlastekBundle\Services\PlastekClient:
+        autowire: true
+
+    Malinoff\PlastekBundle\Services\PlastekFactory: ~
