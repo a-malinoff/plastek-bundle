@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Malinoff\PlastekBundle\DependencyInjection\Compiler;
+namespace Malinoff\PlastekBundle\Services;
 
 interface FillPlastekFactoryInterface
 {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Malinoff\PlastekBundle\DependencyInjection\Compiler;
 
+use Malinoff\PlastekBundle\Services\FillPlastekFactoryInterface;
 use Malinoff\PlastekBundle\Services\PlastekFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

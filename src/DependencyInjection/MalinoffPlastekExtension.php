@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Malinoff\PlastekBundle\DependencyInjection;
 
 use Malinoff\PlastekBundle\DependencyInjection\Compiler\FillPlastekFactoryCompilerPass;
-use Malinoff\PlastekBundle\DependencyInjection\Compiler\FillPlastekFactoryInterface;
+use Malinoff\PlastekBundle\Services\FillPlastekFactoryInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;

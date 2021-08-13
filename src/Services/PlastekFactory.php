@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Malinoff\PlastekBundle\Services;
 
 use Exception;
-use Malinoff\PlastekBundle\DependencyInjection\Compiler\FillPlastekFactoryInterface;
 use Malinoff\PlastekBundle\Services\Request\CalculateOrderRequest;
 use Malinoff\PlastekBundle\Services\Request\CancelOrderRequest;
 use Malinoff\PlastekBundle\Services\Request\ConfirmOrderRequest;
